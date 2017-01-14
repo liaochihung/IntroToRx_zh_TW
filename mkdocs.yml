@@ -1,0 +1,23 @@
+site_name: IntroToRx zh_TW
+
+pages:
+- Home: 01_WhyRx.md
+- Part 1 Getting started:
+  - KeyTypes: 02_KeyTypes.md
+  - Lifetime management: 03_LifetimeManagement.md
+- Part 2 Sequence basics:
+  - Creating a sequence: 04_CreatingObservableSequences.md
+  - Reducing a sequence: 05_Filtering.md
+  - Inspection: 06_Inspection.md
+  - Aggregation: 07_Aggregation.md
+  - Transformation of sequences: 08_Transformation.md
+- Part 3 Taming the sequence:
+  - Side effects: 09_SideEffects.md
+  - Leaving the monad: 10_LeavingTheMonad.md
+  - Advanced error handling: 11_AdvancedErrorHandling.md
+  - Combining sequences: 12_CombiningSequences.md
+  - TimeShifted sequences: 13_TimeShiftedSequences.md  
+
+theme: readthedocs
+repo_url: https://github.com/liaochihung/IntroToRx_zh_TW/
+markdown_extensions: [codehilite]
