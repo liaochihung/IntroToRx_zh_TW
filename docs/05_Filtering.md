@@ -2,8 +2,6 @@
 tags: Rx, C#
 title: Rx介紹 Part 2 - Reducing a sequence(譯ing...)
 ---
->嗯，正在學Rx，學了一輪後實際應用時發現還有不懂的地方，再重讀一次，順便簡單的翻譯下…*翻譯不出來*的或是*覺得不重要*的就以"…"符號替換，或顯示原文。
-當然，辭不達義的地方也會有，請包含…
 ## [Reducing a sequence](http://www.introtorx.com/Content/v1.0.10621.0/05_Filtering.html#Reduction)
 我們活在一個充滿資訊的時代，各種資料以難以想象的速度被產生、儲存並分佈。Consuming this data can be overwhelming, like trying to drink directly from the fire hose. 我們要有擷取所要的資料的能力，選擇那些是相關或無關的，或找出資料中的相關性，使用者、客戶或主管需要你做到這些的同時，並保持高效及耗時更短。
 
@@ -396,5 +394,3 @@ Completed
 這是我們對Rx中的過濾函式的快速導讀。它們很簡單，但Rx的Power來自對這些運算子的合成操作。
 
 These operators provide a good introduction to the filtering in Rx. The filter operators are your first stop for managing the potential deluge of data we can face in the information age. We now know how to remove unmatched data, duplicate data or excess data. Next, we will move on to the other two sub classifications of the reduction operators, inspection and aggregation.
-
-> Written with [StackEdit](https://stackedit.io/).

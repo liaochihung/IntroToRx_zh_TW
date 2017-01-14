@@ -2,8 +2,6 @@
 tags: Rx, C#
 title: Rx介紹 Part 3 - Combining sequences(譯ing...)
 ---
->嗯，正在學Rx，學了一輪後實際應用時發現還有不懂的地方，再重讀一次，順便簡單的翻譯下…*翻譯不出來*的或是*覺得不重要*的就以"…"符號替換，或顯示原文。
-當然，辭不達義的地方也會有，請包含…
 
 ##來自[Combining sequences](http://www.introtorx.com/Content/v1.0.10621.0/12_CombiningSequences.html#CombiningMultipleSequences)
 
@@ -607,5 +605,3 @@ The And/Then/When trio has more overloads that enable you to group an even great
 And / Then /When三元組有更多的覆載，讓你能夠分組更多的序列。它們還允許你提供多個“plan”（Then方法的輸出）。這給你合併功能但是是在“plan”集合中。如果你對這個功能感興趣，我建議你瞭解下它。列舉所有這些函式的組合是冗長且低效的，靠著你自己去使用及發現會比較有用。
 
 當我們深入了解Rx函式庫為我們提供的功能時，我們可以看到更多的實用用法。用Rx建構序列使我們能夠輕鬆地理解問題領域公開的多個資料來源。我們可以用StartWith，Concat和Repeat來連接值或序列。我們可以用Merge同時處理多個序列，或者一次使用Amb和Switch處理單個序列。將值與CombineLatest，Zip和And / Then / When操作配對可以簡化其他操作，如拖放範例和監視系統狀態。
-
-> Written with [StackEdit](https://stackedit.io/).

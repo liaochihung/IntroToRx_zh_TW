@@ -2,8 +2,6 @@
 tags: Rx, C#
 title: Rx介紹 Part 3 - Time-shifted sequences(譯ing...)
 ---
->嗯，正在學Rx，學了一輪後實際應用時發現還有不懂的地方，再重讀一次，順便簡單的翻譯下…*翻譯不出來*的或是*覺得不重要*的就以"…"符號替換，或顯示原文。
-當然，辭不達義的地方也會有，請包含…
 
 ##來自[Time-shifted sequences](http://www.introtorx.com/Content/v1.0.10621.0/13_TimeShiftedSequences.html#TimeShiftedSequences)
 
@@ -460,5 +458,3 @@ public static IObservable<TSource> Timeout<TSource>(
 {...}
 ```
 Rx提供了在響應式模型中馴服時間的不可測元素的功能。可以對資料進行緩衝，限制，採樣或延遲，以滿足你的需求。整個序列可以隨時間移動具有延遲功能，並且資料的時間性可以使用逾時運算子確認。這些簡單而強大的功能進一步擴展了開發人員的工具箱，以用於查詢運作中的資料。
-
-> Written with [StackEdit](https://stackedit.io/).

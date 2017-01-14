@@ -2,8 +2,7 @@
 tags: Rx, C#
 title: Rx介紹 Part 1 - Lifetime management(譯)
 ---
->嗯，正在學Rx，學了一輪後實際應用時發現還有不懂的地方，再重讀一次，順便簡單的翻譯下…*翻譯不出來*的或是*覺得不重要*的就以"…"符號替換，或顯示原文。
-當然，辭不達義的地方也會有，請包含…
+
 ##[生命週期管理](http://www.introtorx.com/Content/v1.0.10621.0/03_LifetimeManagement.html#LifetimeManagement)
 Rx程式中，身為消費者的你無法知道何時會從一個序列接收到值或是完成訊號是件很自然的事，然而這種不確定性並不能防止你提供某種程度上的確定性。你可以控制何時要開始或停止接收數值。你仍然要管理你的領域資料，瞭解管理Rx資源的基本方式，能讓你的程式有效率，更少bug，更可預期結果。
 
@@ -271,4 +270,3 @@ Calling again...
 靠著使用`IDisposable`這個介面，Rx提供了讓你自己決定訂閱的生命週期的功能。每個訂閱都是獨立的，所以取消任一個不會影響到其它，即時有的擴充方法會自動移除訂閱者，但最好還是自己來做，因為你可能在過程中使用到其它的需被dispose的資源。後續章節可看到，訂閱本身可能會引起其它的資源的消耗，如event handles、快取及執行緒等，且記得要在訂閱時提供`OnError`處理去避免例外丟出。
 
 With the knowledge of subscription lifetime management, you are able to keep a tight leash on subscriptions and their underlying resources. With judicious application of standard disposal patterns to your Rx code, you can keep your applications predictable, easier to maintain, easier to extend and hopefully bug free.
-> Written with [StackEdit](https://stackedit.io/).

@@ -2,8 +2,7 @@
 tags: Rx, C#
 title: Rx介紹 Part 3 - Leaving the monad(譯ing...)
 ---
->嗯，正在學Rx，學了一輪後實際應用時發現還有不懂的地方，再重讀一次，順便簡單的翻譯下…*翻譯不出來*的或是*覺得不重要*的就以"…"符號替換，或顯示原文。
-當然，辭不達義的地方也會有，請包含…
+
 ##[Leaving the monad](http://www.introtorx.com/Content/v1.0.10621.0/10_LeavingTheMonad.html#LeavingTheMonad)
 可觀察序列是一個很有用的概念，特別是我們應用LINQ來組合複雜的查詢時。但即使我們認知可觀察序列的優點，有時會需要離開`IObservable<T>`的應用來使用其它的方式，也許是為了讓你能夠與現有的API(如event和`Task<T>`)合作，也許是你發現會更好測試，或更簡單，於是在你學習Rx時你需要在可觀察範式和原先熟悉的範式切換使用。
 
@@ -387,5 +386,3 @@ result.OnNext += (sender, eventArgs) => Console.WriteLine(eventArgs.Value);
 
 ---
 The set of methods we have looked at in this chapter complete the circle started in the Creating a Sequence chapter. We now have the means to enter and leave the observable sequence monad. Take care when opting in and out of the IObservable<T> monad. Doing so excessively can quickly make a mess of your code base, and may indicate a design flaw.
-
-> Written with [StackEdit](https://stackedit.io/).

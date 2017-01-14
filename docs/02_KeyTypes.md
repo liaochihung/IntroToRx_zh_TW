@@ -2,8 +2,7 @@
 tags: Rx, C#
 title: Rx介紹 Part 1 - Key types(譯)
 ---
->嗯，正在學Rx，學了一輪後實際應用時發現還有不懂的地方，再重讀一次，順便簡單的翻譯下…*翻譯不出來*的或是*覺得不重要*的就以"…"符號替換，或顯示原文。
-當然，辭不達義的地方也會有，請包含…
+
 ##[關鍵型別](http://www.introtorx.com/Content/v1.0.10621.0/02_KeyTypes.html#KeyTypes)
 使用Rx時你需要瞭解兩個關鍵型別，而另一些子型別可以幫助你較有效的瞭解Rx。*`IObserver<T>`* and *`IObservable<T>`*是Rx的基礎，*`ISubject<TSource, TResult>`*的實作可以幫忙降低入門Rx的學習曲線。
 
@@ -311,5 +310,3 @@ Subjects提供了一個很方便的方式去瞭解Rx，然而它們並不建議�
 這`IObservable<T>`及`IObserver<T>`這兩個基礎型別及subject型別應是你學習Rx的基本知識，重要的是瞭解這些型別及它們隱含的約定，你會發現在產品中的程式碼中很少使用`IObserver<T>`介面及subject型別，但是瞭解他們如何應用在系統中仍然是需要的。
 
 The IObservable<T> interface is the dominant type that you will be exposed to for representing a sequence of data in motion, and therefore will comprise the core concern for most of your work with Rx and most of this book.
-
-> Written with [StackEdit](https://stackedit.io/).

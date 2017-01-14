@@ -3,6 +3,8 @@ tags: Rx, C#
 title: Rx介紹 Part 1 - Start(譯)
 ---
 
+> This is a Traditional Chinese version of [IntroToRx](http://www.introtorx.com/), and still in progress. The source hosted on [GitHub](https://github.com/liaochihung/IntroToRx_zh_TW/), and use [ReadTheDocs](https://readthedocs.org/projects/introtorx-zh-tw/) to build.
+
 ## 為什麼要用Rx?
 使用者想要即時的資料。想看到即時的推特、訂單馬上被確認、價格是最準確的、線上遊戲不延遲。身為一個開發者，你可能想要一個"發出即忘"的訊息系統，你不想因等待結果而阻塞系統，你希望事情完成時通知你，甚至，當你在等待一串事件的完成時，你想要可以分別得到每個事件完成時的通知。你不想等待所有事件完成才能看到第一筆結果。這個世界已經轉向使用"Push"了，但使用者仍等著我們迎頭趕上，我們已有了工具幫忙送出資料，這很簡單，但是我們需要工具去幫我們響應"Push data"。
 
@@ -92,5 +94,3 @@ public class MemberSearchViewModel : INotifyPropertyChanged
 * 資料過濾，如在一個區域內的線上遊戲伺服器，對個別遊戲或最小數量的參與者
 
 "Push"的時代來了，在這個時代，用Rx武裝你自己是很有效的迎合使用者預期的方式，依照你對Rx的瞭解及組合Rx命令的方式，你可用之以處理依序而來的複雜訊息，Rx是為了讓你在日複一日寫程式時使用的。
-
-> Written with [StackEdit](https://stackedit.io/).

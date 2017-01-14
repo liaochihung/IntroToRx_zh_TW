@@ -2,8 +2,7 @@
 tags: Rx, C#
 title: Rx介紹 Part 2 - Inspection(譯...)
 ---
->嗯，正在學Rx，學了一輪後實際應用時發現還有不懂的地方，再重讀一次，順便簡單的翻譯下…*翻譯不出來*的或是*覺得不重要*的就以"…"符號替換，或顯示原文。
-當然，辭不達義的地方也會有，請包含…
+
 ##[Inspection](http://www.introtorx.com/Content/v1.0.10621.0/06_Inspection.html#Inspection)
 要知道我們並不能僅靠過濾冗餘的部份來取得所需的資料，有時候我們還需要從序列中取得相關或符合預期條件的部份，它是否符合特定條件？某個特定值是否存在？我想找到某個值！
 
@@ -274,5 +273,3 @@ areEqual.OnNext(True)
 areEqual completed
 ```
 本章討論了一組可讓我們檢查可觀察序列的函式，且一般都會回傳一單值的序列。我們將繼續研究可減少我們的序列的函式，直到我們碰到不好理解的functional fold功能。
-
-> Written with [StackEdit](https://stackedit.io/).

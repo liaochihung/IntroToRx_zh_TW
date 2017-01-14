@@ -2,10 +2,6 @@
 tags: Rx, C#
 title: Rx介紹 Part 3 - Advanced error handling(譯...)
 ---
->嗯，正在學Rx，學了一輪後實際應用時發現還有不懂的地方，再重讀一次，順便簡單的翻譯下…*翻譯不出來*的或是*覺得不重要*的就以"…"符號替換，或顯示原文。
-當然，辭不達義的地方也會有，請包含…
-話說，本章中的swallow我翻譯成"吃掉或吞掉"…或者有更文雅的名詞？
-另Exception我基本上翻成例外。
 
 ##[Advanced error handling](http://www.introtorx.com/Content/v1.0.10621.0/09_SideEffects.html#SideEffects)
 
@@ -355,4 +351,3 @@ R--0--1--2-----0--1--2--x
 一個有用的可讓你加入自己的函式庫的擴充函式可能是"Back off and Retry"函式。我的團隊發現這樣的功能在執行I/O，特別是網路請求時很有用。概念是執行，並且在失敗後等待一段時間，然後再執行。你自己的版本可能要考慮需重試的例外類型及可重試的最大次數，你可能甚至想在每次重試時延長等待時間。
 
 例外管理的需求比一般的OnError處理程序還多是司空見慣的。Rx提供了基本的例外處理運算子，你可以使用這些來組合更複雜且強健的查詢。本章中我也介紹了Rx中進階的例外處理，及一些資源管理功能。我們瞭解了Catch、Finally和Using等函式，及其它如OnErrorResumeNext和Retry函式，這些讓你可以玩一下'fast and loose'。我們還重新使用marble圖來幫助我們對多個序列的組合的視覺化。這將幫助我們學習在下一章要看的組合和聚合可觀察序列的其它函式。
-> Written with [StackEdit](https://stackedit.io/).

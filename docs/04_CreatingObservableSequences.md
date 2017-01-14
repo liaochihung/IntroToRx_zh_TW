@@ -2,8 +2,6 @@
 tags: Rx, C#
 title: Rx介紹 Part 2 - Sequence basics(譯ing...)
 ---
->嗯，正在學Rx，學了一輪後實際應用時發現還有不懂的地方，再重讀一次，順便簡單的翻譯下…*翻譯不出來*的或是*覺得不重要*的就以"…"符號替換，或顯示原文。
-當然，辭不達義的地方也會有，請包含…
 ## [Part 2 - Sequence basics](http://www.introtorx.com/Content/v1.0.10621.0/04_CreatingObservableSequences.html#CreationOfObservables)
 你想開始寫些Rx程式了，不過要從那裡開始呢？我們已經瞭解了關鍵型別，而且知道不應該實作自己的`IObserver<T>`和`IObservable<T>`，儘量用工廠方法而不是subjects。假設我們已經有了一個observable序列，要如何中從取得想要的資料呢？基本上我們需要瞭解建立observable序列、賦值並取得值的方式。
 
@@ -614,39 +612,3 @@ bytesReadStream.Subscribe(
 	* Observable.FromAsyncPattern
 
 建立可觀察序列是我們應用Rx的第一步：建立序列然後使用它，現在我們已經對建立的方式有了深刻的瞭解，再然後就可以學習操作可觀察序列的方法。
-
----
-
-<div class="webonly">
-	<h1 class="ignoreToc">Additional recommended reading</h1>
-	<div align="center">
-		<div style="display:inline-block; vertical-align: top;  margin: 10px; width: 140px; font-size: 11px; text-align: center">
-			<!--C# in a nutshell Amazon.co.uk-->
-			<iframe src="http://rcm-uk.amazon.co.uk/e/cm?t=int0b-21&amp;o=2&amp;p=8&amp;l=as1&amp;asins=B008E6I1K8&amp;ref=qf_sp_asin_til&amp;fc1=000000&amp;IS2=1&amp;lt1=_blank&amp;m=amazon&amp;lc1=0000FF&amp;bc1=000000&amp;bg1=FFFFFF&amp;f=ifr" 
-					style="width:120px;height:240px;margin: 10px" 
-					scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
-
-		</div>
-		<div style="display:inline-block; vertical-align: top;  margin: 10px; width: 140px; font-size: 11px; text-align: center">
-			<!--C# Linq pocket reference Amazon.co.uk-->
-			<iframe src="http://rcm-uk.amazon.co.uk/e/cm?t=int0b-21&amp;o=2&amp;p=8&amp;l=as1&amp;asins=0596519249&amp;ref=qf_sp_asin_til&amp;fc1=000000&amp;IS2=1&amp;lt1=_blank&amp;m=amazon&amp;lc1=0000FF&amp;bc1=000000&amp;bg1=FFFFFF&amp;f=ifr" 
-					style="width:120px;height:240px;margin: 10px" 
-					scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
-		</div>
-
-		<div style="display:inline-block; vertical-align: top; margin: 10px; width: 140px; font-size: 11px; text-align: center">
-			<!--CLR via C# v4 Amazon.co.uk-->
-			<iframe src="http://rcm-uk.amazon.co.uk/e/cm?t=int0b-21&amp;o=2&amp;p=8&amp;l=as1&amp;asins=B00AA36R4U&amp;ref=qf_sp_asin_til&amp;fc1=000000&amp;IS2=1&amp;lt1=_blank&amp;m=amazon&amp;lc1=0000FF&amp;bc1=000000&amp;bg1=FFFFFF&amp;f=ifr" 
-					style="width:120px;height:240px;margin: 10px" 
-					scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
-
-		</div>
-		<div style="display:inline-block; vertical-align: top; margin: 10px; width: 140px; font-size: 11px; text-align: center">
-			<!--Real-world functional programming Amazon.co.uk-->
-			<iframe src="http://rcm-uk.amazon.co.uk/e/cm?t=int0b-21&amp;o=2&amp;p=8&amp;l=as1&amp;asins=1933988924&amp;ref=qf_sp_asin_til&amp;fc1=000000&amp;IS2=1&amp;lt1=_blank&amp;m=amazon&amp;lc1=0000FF&amp;bc1=000000&amp;bg1=FFFFFF&amp;f=ifr" 
-					style="width:120px;height:240px;margin: 10px" 
-					scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
-
-		</div>           
-	</div>
-</div>

@@ -2,8 +2,6 @@
 tags: Rx, C#
 title: Rx介紹 Part 2 - Transformation of sequences(譯ing...)
 ---
->嗯，正在學Rx，學了一輪後實際應用時發現還有不懂的地方，再重讀一次，順便簡單的翻譯下…*翻譯不出來*的或是*覺得不重要*的就以"…"符號替換，或顯示原文。
-當然，辭不達義的地方也會有，請包含…
 
 ##[Transformation of sequences](http://www.introtorx.com/Content/v1.0.10621.0/08_Transformation.html#TransformationOfSequences)
 我們消費的序列中的值並不總是我們需要的格式。有時在數據中有太多的雜訊，所以我們要將雜訊去掉。有時，每個值都需要擴展進更豐富的物件中或更多的值。通過組合運算子，Rx允許您控制所消耗的可觀察序列中的值的質量以及數量。
@@ -560,5 +558,3 @@ SelectMany completed
 	* Inject
 
 現在你應該覺得你對如何操作序列有很深的理解。然而，到目前為止我們所學到的東西也都大部分可以應用在IEnumerable序列上。Rx可能比許多人在IEnumerable世界中處理的複雜得多，正如我們在SelectMany函式中看到的。在本書的下一部分中，我們將瞭解Rx天然非同步的特性。憑著我們已經建立的基礎，我們應該能夠解決Rx中更具挑戰性和有趣的功能。
-
-> Written with [StackEdit](https://stackedit.io/).
