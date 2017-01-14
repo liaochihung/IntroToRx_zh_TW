@@ -1,7 +1,7 @@
 site_name: IntroToRx zh_TW
 
 pages:
-- Home: 01_WhyRx.md
+- Home: index.md
 - Part 1 Getting started:
   - KeyTypes: 02_KeyTypes.md
   - Lifetime management: 03_LifetimeManagement.md
