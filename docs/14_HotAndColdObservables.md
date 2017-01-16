@@ -8,9 +8,10 @@ title : Hot and Cold observables
 #Hot and Cold observables			{#HotAndCold}
 
 In this chapter, we will look at how to describe and handle two styles of observable sequences:
+這一章我們要瞭解兩種可觀察序列：
 
- 1. Sequences that are passive and start producing notifications on request (when subscribed to), and
- 2. Sequences that are active and produce notifications regardless of subscriptions.
+1. 僅在請求後產生推送值的被動式序列
+2. 訂閱後隨即產生推送值的主動式序列 
 
 In this sense, passive sequences are `Cold` and active are described as being `Hot`. 
 You can draw some similarities between implementations of the `IObservable<T>` interface and implementations of the `IEnumerable<T>`interface with regards to hot and cold. 
@@ -18,6 +19,9 @@ With `IEnumerable<T>`, you could have an on-demand collection via the yield retu
 We can compare the two styles by attempting to read just the first value from a sequence. 
 We can do this with a method like this:
 
+在這個意義上，被動序列是“泠“的，主動序列是”熱“的。你可以在`IObservable<T>`介面和`IEnumerable<T>`介面的實作描繪相對的冷和熱。使用`IEnumerable<T>`，你可以透過yield return語法按需求產生集合，或透過回傳`List<T>`得到一個及早估值的集合。我們可以通過嘗試從序列中讀取第一個值來比較這兩種樣式，可使用如下函式：
+
+```csharp
 	public void ReadFirstValue(IEnumerable<int> list)
 	{
 		foreach (var i in list)
@@ -26,10 +30,11 @@ We can do this with a method like this:
 			break;
 		}
 	}
-
+```
 As an alternative to the `break` statement, we could apply a `Take(1)` to the `list`. 
 If we then apply this to an eagerly-evaluated sequence, such as a list, we see the entire list is first constructed, and then returned.
-
+而與其用`break`指令，我們也可以在`list`上用`Take(1)`，如果再使用及早估值的序列，我們可以看到序列一建立後就回傳。
+```csharp
 	public static void Main()
 	{
 		ReadFirstValue(EagerEvaluation());
@@ -44,8 +49,8 @@ If we then apply this to an eagerly-evaluated sequence, such as a list, we see t
 		result.Add(2);
 		return result;
 	}
-
-Output:
+```
+輸出：
 
 <div class="output">
 	<div class="line">About to return 1</div>
@@ -54,7 +59,8 @@ Output:
 </div>
 
 We now apply the same code to a lazily-evaluated sequence.
-
+現在在延後取值的序列使用同樣的程式碼：
+```csharp
 	public IEnumerable<int> LazyEvaluation()
 	{
 		Console.WriteLine("About to return 1");
@@ -63,8 +69,8 @@ We now apply the same code to a lazily-evaluated sequence.
 		Console.WriteLine("About to return 2");
 		yield return 2;
 	}
-
-Output:
+```
+輸出：
 
 <div class="output">
 	<div class="line">About to return 1</div>
@@ -74,26 +80,38 @@ Output:
 The lazily-evaluated sequence did not have to yield any more values than required.
 Lazy evaluation is good for on-demand queries whereas eager evaluation is good for sharing sequences so as to avoid re-evaluating multiple times. 
 Implementations of `IObservable<T>` can exhibit similar variations in style.
+延後求值序列不會回傳比需求還多的數值。延後求值適合於on-demand的查詢，而及早估值適合於共享序列以避免重覆估值多次。而`IObservable<T>`的實作在風格上有類似的變化。
 
 Examples of hot observables that could publish regardless of whether there are any subscribers would be:
+以下是不管有任何訂閱者都會推送資訊的"熱"的可觀察序列的例子：
 
  * mouse movements 
  * timer events 
  * broadcasts like ESB channels or UDP network packets. 
  * price ticks from a trading exchange 
+ * 滑鼠移動
+ * 時間的事件
+ * 廣播，如ESB頻道或UDP網路封包 
+ * 交易所的交易價格
 
 ome examples of cold observables would be:
+"冷"的可觀察序列的範例：
 
  * asynchronous request (e.g. when using `Observable.FromAsyncPattern`)
  * whenever `Observable.Create` is used
  * subscriptions to queues 
  * on-demand sequences
+ * 非同步的請求(例：當使用`Observable.FromAsyncPattern`時)
+ * 使用`Observable.Create`時
+ * 從佇列中訂閱時
+ * `on-demand`序列
 
 ##Cold observables					{#ColdObservables}
 
 In this example, we fetch a list of products from a database. 
 In our implementation, we choose to return an `IObservable<string>` and, as we get the results, we publish them until we have the full list, then complete the sequence.
-
+這個範例中，我們從資料庫中取得一串商品資料。這個實作中，我們選擇回傳一個`IObservable<string>`，取得結果後，會發上發佈，直到取得整個串列，然後就結束序列。
+```csharp
 	private const string connectionString = @"Data Source=.\SQLSERVER;"+
 		@"Initial Catalog=AdventureWorksLT2008;Integrated Security=SSPI;"
 	private static IObservable<string> GetProducts()
@@ -115,7 +133,7 @@ In our implementation, we choose to return an `IObservable<string>` and, as we g
 			}
 		});
 	}
-
+```
 This code is just like many existing data access layers that return an `IEnumerable<T>`, however it would be much easier with Rx to access this in an asynchronous manner (using [SubscribeOn and ObserveOn](15_SchedulingAndThreading.html#SubscribeOnObserveOn)). 
 This example of a data access layer is lazily evaluated and provides no caching. 
 Each time the method is used, we reconnect to the database.
@@ -507,4 +525,5 @@ The use of `RefCount` allows you to have lazily-evaluated, multicast observable 
 					scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
 
 		</div>           
-	</div></div>
+	</div>
+</div>

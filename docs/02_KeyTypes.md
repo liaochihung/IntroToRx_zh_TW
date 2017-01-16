@@ -219,7 +219,7 @@ public void BehaviorSubjectExample3()
 }
 ```
 而這個範例中，沒有任何值會被輸出至console，因為此序列在訂閱前已結束：
-```c#
+```csharp
 public void BehaviorSubjectCompletedExample()
 {
 	var subject = new BehaviorSubject<string>("a");

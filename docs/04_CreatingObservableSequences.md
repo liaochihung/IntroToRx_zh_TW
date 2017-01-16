@@ -501,7 +501,7 @@ public static IObservable<T> ToObservable<T>(this IEnumerable<T> source)
 ```
 然而這初步的實作是有點單純，它無法明確的被disposal，處理例外的方法也不像後續章節說明的那樣正確，它的同步模型不對味。但是你不用過度擔心，因為這一版的Rx已經處理好了。
 
-當從`IEnumerable<T>` 轉型至 `IObservable<T>`時，你應謹甚的考慮你要做的是什麼，也要小心的量測你的決定的效能。考慮到`IEnumerable<T>`天然的阻塞式同步拉的模型，並不一定適用在`IObservable<T>`非同步推的模型。記且你傳入IEnumerable、	IEnumerable<T>`、陣列或集合等資料型別以產生可觀察序列是完全合法的，如果這個序列可以一入性的被materialized，你應該想避免將它當成一個IEnumerable，若是合適的話，你應該傳入一個不可變型別，像是一個陣列或`ReadOnlyCollection<T>` ，後續我們將看到使用`IObservable<IList<T>>`當作運算子以提供一個批次的資料。
+當從`IEnumerable<T>` 轉型至 `IObservable<T>`時，你應謹甚的考慮你要做的是什麼，也要小心的量測你的決定的效能。考慮到`IEnumerable<T>`天然的阻塞式同步拉的模型，並不一定適用在`IObservable<T>`非同步推的模型。記且你傳入`IEnumerable`、	`IEnumerable<T>`、陣列或集合等資料型別以產生可觀察序列是完全合法的，如果這個序列可以一入性的被materialized，你應該想避免將它當成一個`IEnumerable`，若是合適的話，你應該傳入一個不可變型別，像是一個陣列或`ReadOnlyCollection<T>` ，後續我們將看到使用`IObservable<IList<T>>`當作運算子以提供一個批次的資料。
 
 ###From APM
 最後我們來看一組將APM轉成可觀察序列的覆載。在.NET中的這種是一Begin及End開頭並傳入IAsyncResult型別的參數方法，常被用在I/O相關的API中。
