@@ -17,6 +17,7 @@ pages:
   - Advanced error handling: 11_AdvancedErrorHandling.md
   - Combining sequences: 12_CombiningSequences.md
   - TimeShifted sequences: 13_TimeShiftedSequences.md  
+  - Hot and Cold observables: 14_HotAndColdObservables.md
 
 theme: readthedocs
 repo_url: https://github.com/liaochihung/IntroToRx_zh_TW/
