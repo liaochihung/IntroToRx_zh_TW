@@ -1,11 +1,12 @@
 ---
-title : Hot and Cold observables
+tags: Rx, C#
+title: Rx介紹 Part 3 - Hot and Cold observables
 ---
 
 <!--TODO: Observable.Synchronize (vNext? Say it is not intro material?)-->
 <!--TODO: Observable.Defer - Make cold (vNext? Say it is not intro material?)-->
 
-#Hot and Cold observables			{#HotAndCold}
+#Hot and Cold observables
 
 這一章我們要瞭解兩種可觀察序列：
 
@@ -43,11 +44,11 @@ title : Hot and Cold observables
 ```
 輸出：
 
-<div class="output">
-	<div class="line">About to return 1</div>
-	<div class="line">About to return 2</div>
-	<div class="line">Read out first value of 1</div>
-</div>
+```dos
+About to return 1
+About to return 2
+Read out first value of 1
+```
 
 現在在延後取值的序列使用同樣的程式碼：
 ```csharp
@@ -62,11 +63,10 @@ title : Hot and Cold observables
 ```
 輸出：
 
-<div class="output">
-	<div class="line">About to return 1</div>
-	<div class="line">Read out first value of 1</div>
-</div>
-
+```dos
+About to return 1
+Read out first value of 1
+```
 延後求值序列不會回傳比需求還多的數值。延後求值適合於on-demand的查詢，而及早估值適合於共享序列以避免重覆估值多次。而`IObservable<T>`的實作在風格上有類似的變化。
 
 以下是不管有任何訂閱者都會推送資訊的"熱"的可觀察序列的例子：
@@ -87,7 +87,7 @@ title : Hot and Cold observables
  * 從佇列中訂閱時
  * `on-demand`序列
 
-##Cold observables					{#ColdObservables}
+##Cold observables
 
 這個範例中，我們從資料庫中取得一串商品資料。這個實作中，我們選擇回傳一個`IObservable<string>`，取得結果後，會發上發佈，直到取得整個串列，然後就結束序列。
 ```csharp
@@ -131,7 +131,7 @@ title : Hot and Cold observables
 
 後續章節[scheduling](15_SchedulingAndThreading.html)我們會介紹如何正確的提供取消功能。
 
-##Hot observables					{#HotObservables}
+##Hot observables
 
 上述範例中，我們不會和資料庫建立連線，直到`GetProducts()`的消費者訂閱了它的回傳值。
 對`GetProducts()`循序或甚至平行呼叫會回傳各自獨立的可觀察序列，且各自擁有其對資料庫的操作。
@@ -164,7 +164,7 @@ title : Hot and Cold observables
 		*/ 
 	}
 ```
-##Publish and Connect				{#PublishAndConnect}
+##Publish and Connect
 
 如果我們想共享正確的值本身，而不只是同一個可觀察實體，可以用`Publish()`擴充函式。
 它會回傳一個`IConnectableObservable<T>`型別，此型別依靠增加了一個`Connect()`函式的擴充自`IObservable<T>`型別來達成。
@@ -178,15 +178,13 @@ title : Hot and Cold observables
 	observable.Subscribe(i => Console.WriteLine("second subscription : {0}", i));
 ```
 輸出：
-
-<div class="output">
-	<div class="line">first subscription : 0 </div>
-	<div class="line">first subscription : 1 </div>
-	<div class="line">second subscription : 1 </div>
-	<div class="line">first subscription : 2 </div>
-	<div class="line">second subscription : 2 </div>
-</div>
-
+```dos
+first subscription : 0 
+first subscription : 1 
+second subscription : 1 
+first subscription : 2 
+second subscription : 2 
+```
 上述範例中，`observable`變數是一個`IConnectableObservable<T>`型別，透過呼叫`Connect()`，它會訂閱裡面的（`Observable.Interval`）。
 在這種情況下，如果我們夠快，可以在第一個元素產生前就訂閱，但只能在第一次訂閱。第二次的訂閱較慢，且錯過了第一個推送值，我們可以移動`Connect()`函式到所有的訂閱都完成後，這樣，即使已呼叫`Thread.Sleep`，我們不會實際訂閱底層，直到兩個訂閱完成後。如下所示：
 ```csharp
@@ -197,20 +195,19 @@ title : Hot and Cold observables
 	observable.Subscribe(i => Console.WriteLine("second subscription : {0}", i));
 	observable.Connect();
 ```
-<div class="output">
-	<div class="line">first subscription : 0 </div>
-	<div class="line">second subscription : 0 </div>
-	<div class="line">first subscription : 1 </div>
-	<div class="line">second subscription : 1 </div>
-	<div class="line">first subscription : 2 </div>
-	<div class="line">second subscription : 2 </div>
-</div>
-
+```dos
+first subscription : 0 
+second subscription : 0 
+first subscription : 1 
+second subscription : 1 
+first subscription : 2 
+second subscription : 2 
+```
 你可以想像，當一個應用程式需要共享序列資料時這會很有用處。
 在一個金融交易應用軟體中，如果你想對一個特定的資產的資料串流消費，你會想重用此公共串流以避免對提供資料的伺服器進行另一個訂閱。
 在社交應用軟體中，許多`widgets`可能需要在某個人上線時得到通知，`Publish`和`Connect`會是此狀況的最佳應用。
 
-###Disposal of connections and subscriptions	{#Disposal}
+###Disposal of connections and subscriptions
 
 另一個有趣的事是disposal是如何被執行的。
 是的，我們還沒提到`Connect`回傳的是一個`IDisposable`。依靠對'connection'的disposing，你可以讓序列啟動和關閉(`Connect()`啟動，disposing關閉)。
@@ -239,20 +236,19 @@ title : Hot and Cold observables
 ```
 輸出：
 
-<div class="output">
-	<div class="line">Press enter to connect, esc to exit. </div>
-	<div class="line">Press any key to dispose of connection. </div>
-	<div class="line">subscription : 0 </div>
-	<div class="line">subscription : 1 </div>
-	<div class="line">subscription : 2 </div>
-	<div class="line">Press enter to connect, esc to exit. </div>
-	<div class="line">Press any key to dispose of connection. </div>
-	<div class="line">subscription : 0 </div>
-	<div class="line">subscription : 1 </div>
-	<div class="line">subscription : 2 </div>
-	<div class="line">Press enter to connect, esc to exit. </div>
-</div>
-
+```dos
+Press enter to connect, esc to exit. 
+Press any key to dispose of connection. 
+subscription : 0 
+subscription : 1 
+subscription : 2 
+Press enter to connect, esc to exit. 
+Press any key to dispose of connection. 
+subscription : 0 
+subscription : 1 
+subscription : 2 
+Press enter to connect, esc to exit. 
+```
 最後讓我們來看看自動對連線disposal。我們想讓同一個序列被多個訂閱者訂閱，如同上述的價格串流。如果有任何訂閱者，我們也會想讓序列表現'Hot'的行為，因此，不僅顯而易見，應當存在用於自動連線（一旦訂閱已經進行）的機制，而且還有用於從序列斷開連線（一旦沒有訂閱者）的機制。
 
 首先讓我們看看當連線沒有訂閱者，然後再取消訂閱時，序列會發生什麼：
@@ -272,28 +268,26 @@ title : Hot and Cold observables
 	Console.ReadKey();
 ```
 輸出：
-
-<div class="output">
-	<div class="line">Press any key to subscribe </div>
-	<div class="line">Publishing 0 </div>
-	<div class="line">Publishing 1 </div>
-	<div class="line">Press any key to unsubscribe. </div>
-	<div class="line">Publishing 2 </div>
-	<div class="line">subscription : 2 </div>
-	<div class="line">Publishing 3 </div>
-	<div class="line">subscription : 3 </div>
-	<div class="line">Press any key to exit. </div>
-	<div class="line">Publishing 4 </div>
-	<div class="line">Publishing 5 </div>
-</div>
-
+```dos
+Press any key to subscribe 
+Publishing 0 
+Publishing 1 
+Press any key to unsubscribe. 
+Publishing 2 
+subscription : 2 
+Publishing 3 
+subscription : 3 
+Press any key to exit. 
+Publishing 4 
+Publishing 5 
+```
 在這裡有幾件事情需要注意：
 
 1. 我用`Do`擴充函式建立了序列的邊際效應(例如：輸出至console中)，這可讓我們知道序列何時建立連線。
 2. 我們先連線再訂閱，表示我們可以在沒有訂閱時推送資料；即讓序列為"Hot"。
 3. 我們取消了訂閱，但沒有dispose連線，這表示序列將會繼續動作。
 
-###RefCount					{#RefCount}
+###RefCount
 
 讓我們用`RefCount`擴充函式替換掉上述範例中的`Connect()`函式，這會"神奇地"實現我們對自動disposal及延遲連線的需求。當自動實作我們想要的"connect"和"disconnect"行為時，`RefCount`會代入一個`IConnectableObservable<T>`並將其轉型至`IObservable<T>`。
 ```csharp
@@ -313,22 +307,20 @@ title : Hot and Cold observables
 	Console.ReadKey();
 ```
 輸出：
-
-<div class="output">
-	<div class="line">Press any key to subscribe </div>
-	<div class="line">Press any key to unsubscribe. </div>
-	<div class="line">Publishing 0 </div>
-	<div class="line">subscription : 0 </div>
-	<div class="line">Publishing 1 </div>
-	<div class="line">subscription : 1 </div>
-	<div class="line">Publishing 2 </div>
-	<div class="line">subscription : 2 </div>
-	<div class="line">Press any key to exit. </div>
-</div>
-
+```dos
+Press any key to subscribe 
+Press any key to unsubscribe. 
+Publishing 0 
+subscription : 0 
+Publishing 1 
+subscription : 1 
+Publishing 2 
+subscription : 2 
+Press any key to exit. 
+```
 `Publish`/`RefCount`代入一個“cold”的可觀察序列並將其用“hot”可觀察序列的方式共享對後續的觀察者超級有用，而`RefCount()`函式也讓我們避免了race condition。在上述範例中，我們在連線建立前訂閱了序列，這並不總是可行，特別是我們從一個函式中取得了序列。依靠使用`RefCount`函式，由於其自動連線的行為可以減輕subscribe/connect的race condition。在上述範例中，我們在連線建立前訂閱了序列，這並不總是可行，特別是我們從一個函式中取得了序列。依靠使用`RefCount`函式，由於其自動連線的行為可以減輕subscribe/connect的race condition。
 
-##Other connectable observables			{#OtherConnectables}
+##Other connectable observables
 
 `Connect`函式不是回傳`IConnectableObservable <T>`實體的唯一函式。
 連接或延遲一個操作的功能的能力在其他領域也很有用。
@@ -355,19 +347,17 @@ title : Hot and Cold observables
 	Console.ReadKey();
 ```
 輸出：
-
-<div class="output">
-	<div class="line">Press any key to subscribe </div>
-	<div class="line">Publishing 0 </div>
-	<div class="line">Publishing 1 </div>
-	<div class="line">Press any key to unsubscribe. </div>
-	<div class="line">Publishing 2 </div>
-	<div class="line">Publishing 3 </div>
-	<div class="line">Publishing 4 </div>
-	<div class="line">subscription : 4 </div>
-	<div class="line">Press any key to exit. </div>
-</div>
-
+```dos
+Press any key to subscribe 
+Publishing 0 
+Publishing 1 
+Press any key to unsubscribe. 
+Publishing 2 
+Publishing 3 
+Publishing 4 
+subscription : 4 
+Press any key to exit. 
+```
 ###Replay							{#Replay}
 
 `Replay`擴充函式讓你可以如同一個`ReplaySubject<T>`一樣的對一個已存在的可觀察序列做類似'replay'語義的操作。
@@ -390,15 +380,14 @@ title : Hot and Cold observables
 	Console.ReadKey();
 ```
 輸出：
-
-<div class="output">
-	<div class="line">first subscription : 1 </div>
-	<div class="line">second subscription : 1 </div>
-	<div class="line">first subscription : 2 </div>
-	<div class="line">second subscription : 2 </div>
-	<div class="line">third subscription : 1 </div>
-	<div class="line">third subscription : 2 </div>
-</div>
+```dos
+first subscription : 1 
+second subscription : 1 
+first subscription : 2 
+second subscription : 2 
+third subscription : 1 
+third subscription : 2 
+```
 
 `Replay`擴充函式有數個對應至`ReplaySubject<T>`建構式的覆載；你可以用數值或時間指定緩衝區大小。
 
@@ -418,70 +407,23 @@ title : Hot and Cold observables
 	shared.Subscribe(i => Console.WriteLine("second subscription : {0}", i));
 ```
 輸出：
+```dos
+first subscription : 0
+first subscription : 1
+second subscription : 1
+first subscription : 2
+second subscription : 2 
+```
 
-<div class="output">
-	<div class="line">first subscription : 0</div>
-	<div class="line">first subscription : 1</div>
-	<div class="line">second subscription : 1</div>
-	<div class="line">first subscription : 2</div>
-	<div class="line">second subscription : 2 </div>
-</div>
-
-x函式庫為我們提供了一個很好的方法來達成這一點。你可以通過`Multicast`擴充函式來應用至subject behavior，這讓你可以用一個特定的主題的行為來共享或"multicast"一個可觀察序列。
+Rx函式庫為我們提供了一個很好的方法來達成這一點。你可以通過`Multicast`擴充函式來應用至subject behavior，這讓你可以用一個特定的主題的行為來共享或"multicast"一個可觀察序列。
 舉例來說：
 
  * `.Publish()` = `.Multicast(new Subject<T>)`
  * `.PublishLast()` = `.Multicast(new AsyncSubject<T>)`
  * `.Replay()` = `.Multicast(new ReplaySubject<T>)`
 
-熱和冷觀察者是兩種不同的共享可觀察序列的風格。
+"Hot"和"Cold"觀察者是兩種不同的共享可觀察序列的風格。
 兩者都有同樣是有效的應用，但以不同的方式來表現。
-冷的可觀察序列允許你為每個訂閱者獨立地對可觀察序列使用延遲估值。
-而熱的功能允許你通過multicast你的序列來共享通知，即使在沒有訂閱者的狀況。
+"Cold"的可觀察序列允許你為每個訂閱者獨立地對可觀察序列使用延遲估值。
+而"Hot"的功能允許你通過`multicast`你的序列來共享通知，即使在沒有訂閱者的狀況。
 The use of `RefCount` allows you to have lazily-evaluated, multicast observable sequences, coupled with eager disposal semantics once the last subscription is disposed.
-
-<!--
-	<a name="Defer"></a>
-	<h2>Defer
-	<p></p>
-
-	<a name="Synchronize"></a>
-	<h2>Synchronize
-	<p></p>
-	-->
-
----
-	
-<div class="webonly">
-	<h1 class="ignoreToc">Additional recommended reading</h1>
-	<div align="center">
-		<div style="display:inline-block; vertical-align: top;  margin: 10px; width: 140px; font-size: 11px; text-align: center">
-			<!--C# in a nutshell Amazon.co.uk-->
-			<iframe src="http://rcm-uk.amazon.co.uk/e/cm?t=int0b-21&amp;o=2&amp;p=8&amp;l=as1&amp;asins=B008E6I1K8&amp;ref=qf_sp_asin_til&amp;fc1=000000&amp;IS2=1&amp;lt1=_blank&amp;m=amazon&amp;lc1=0000FF&amp;bc1=000000&amp;bg1=FFFFFF&amp;f=ifr" 
-					style="width:120px;height:240px;margin: 10px" 
-					scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
-
-		</div>
-		<div style="display:inline-block; vertical-align: top;  margin: 10px; width: 140px; font-size: 11px; text-align: center">
-			<!--C# Linq pocket reference Amazon.co.uk-->
-			<iframe src="http://rcm-uk.amazon.co.uk/e/cm?t=int0b-21&amp;o=2&amp;p=8&amp;l=as1&amp;asins=0596519249&amp;ref=qf_sp_asin_til&amp;fc1=000000&amp;IS2=1&amp;lt1=_blank&amp;m=amazon&amp;lc1=0000FF&amp;bc1=000000&amp;bg1=FFFFFF&amp;f=ifr" 
-					style="width:120px;height:240px;margin: 10px" 
-					scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
-		</div>
-
-		<div style="display:inline-block; vertical-align: top; margin: 10px; width: 140px; font-size: 11px; text-align: center">
-			<!--CLR via C# v4 Amazon.co.uk-->
-			<iframe src="http://rcm-uk.amazon.co.uk/e/cm?t=int0b-21&amp;o=2&amp;p=8&amp;l=as1&amp;asins=B00AA36R4U&amp;ref=qf_sp_asin_til&amp;fc1=000000&amp;IS2=1&amp;lt1=_blank&amp;m=amazon&amp;lc1=0000FF&amp;bc1=000000&amp;bg1=FFFFFF&amp;f=ifr" 
-					style="width:120px;height:240px;margin: 10px" 
-					scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
-
-		</div>
-		<div style="display:inline-block; vertical-align: top; margin: 10px; width: 140px; font-size: 11px; text-align: center">
-			<!--Real-world functional programming Amazon.co.uk-->
-			<iframe src="http://rcm-uk.amazon.co.uk/e/cm?t=int0b-21&amp;o=2&amp;p=8&amp;l=as1&amp;asins=1933988924&amp;ref=qf_sp_asin_til&amp;fc1=000000&amp;IS2=1&amp;lt1=_blank&amp;m=amazon&amp;lc1=0000FF&amp;bc1=000000&amp;bg1=FFFFFF&amp;f=ifr" 
-					style="width:120px;height:240px;margin: 10px" 
-					scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
-
-		</div>           
-	</div>
-</div>

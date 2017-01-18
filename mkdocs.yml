@@ -18,6 +18,10 @@ pages:
   - Combining sequences: 12_CombiningSequences.md
   - TimeShifted sequences: 13_TimeShiftedSequences.md  
   - Hot and Cold observables: 14_HotAndColdObservables.md
+- Part 4 Concurrency:
+  - Scheduling and threading: 15_SchedulingAndThreading.md
+  - Testing Rx: 16_TestingRx.md
+  - Sequences of coincidence: 17_SequencesOfCoincidence.md
 
 theme: readthedocs
 repo_url: https://github.com/liaochihung/IntroToRx_zh_TW/
